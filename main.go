@@ -1,25 +1,17 @@
 package main
 
 import (
-	"log"
-	"net/http"
-
-	h "github.com/rmelo/httpserver/http"
+	"github.com/rmelo/httpserver/app"
+	"github.com/rmelo/httpserver/http"
 )
 
 func main() {
 
-	server := startServer()
-
-	log.Println("Listening...")
-	http.ListenAndServe(":8080", server)
-}
-
-func startServer() http.Handler {
-	mux := http.NewServeMux()
-	s := h.Server{
-		Router: routes(),
+	opts := http.ServeOpts{
+		Addr:     ":8080",
+		RootPath: "/",
 	}
-	mux.Handle("/", s.Router)
-	return mux
+
+	s := http.NewServer(opts, routes())
+	app.NewApp(s).Run()
 }
