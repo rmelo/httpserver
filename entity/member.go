@@ -2,8 +2,8 @@ package entity
 
 //Member is a struct representing member
 type Member struct {
-	Name  string
-	Email string
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 //NewMember creates an instance of Member.
