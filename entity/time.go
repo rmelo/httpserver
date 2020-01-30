@@ -9,6 +9,6 @@ type Time struct {
 }
 
 //NewTime creates an instance of Time.
-func NewTime() interface{} {
-	return &Time{Time: time.Now().String()}
+func NewTime() Time {
+	return Time{Time: time.Now().String()}
 }

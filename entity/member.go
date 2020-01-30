@@ -7,6 +7,6 @@ type Member struct {
 }
 
 //NewMember creates an instance of Member.
-func NewMember() interface{} {
-	return &Member{}
+func NewMember() Member {
+	return Member{}
 }

@@ -1,2 +1,2 @@
 run:
-	go run main.go routes.go  
+	go run main.go routes.go factory.go
