@@ -10,14 +10,15 @@ import (
 )
 
 func routes() http.Handler {
+
 	r := mux.NewRouter()
+	r.Use(common.WithLogging)
 
-	jsonChain := func(f func() interface{}, next common.JSONHandler) http.Handler {
-		return common.LogMiddleware(common.JSONHandle(f, next))
-	}
+	memberHandler := common.WithDecode(func() interface{} { return &entity.Member{} }, handler.Member)
+	timeHandler := common.WithDecode(func() interface{} { return entity.NewTime() }, handler.Time)
 
-	r.Handle("/time", jsonChain(entity.NewTime, handler.Time))
-	r.Handle("/member", common.LogMiddleware(common.JSONHandle(entity.NewMember, handler.Member)))
+	r.Handle("/time", timeHandler)
+	r.Handle("/member", memberHandler)
 	r.HandleFunc("/hello", handler.Hello)
 
 	return r
